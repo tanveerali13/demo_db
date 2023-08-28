@@ -29,6 +29,7 @@ if ($stmt =  mysqli_prepare($link, $query)){
 
 //https://www.sktanveer65.web582.com/dynamic-web-prog/demo_db/app/insert.php?full_name=Robin&email=robin@mail.com&tvshow=Robinhood
  //test
+ //test2
 
 ?>
 
