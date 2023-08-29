@@ -8,12 +8,10 @@ require_once "_includes/db_connect.php";
 $results = [];
 $insertedRows = 0;
 
-//INSERT INTO `demo` (`demoID`, `name`, `email`, `tvshow`, `timestamp`) VALUES (NULL, 'Tom Cruise', 'tom@mail.com', 'Mission Impossible', current_timestamp());
-
-$query = "INSERT INTO demo(name, email, tvshow) VALUES (?, ?, ?)";
+$query = "INSERT INTO expense(expense_name, amount, details) VALUES (?, ?, ?)";
 
 if ($stmt =  mysqli_prepare($link, $query)){
-    mysqli_stmt_bind_param($stmt, 'sss', $_REQUEST["full_name"], $_REQUEST["email"], $_REQUEST["tvshow"]);
+    mysqli_stmt_bind_param($stmt, 'sis', $_REQUEST["expense_name"], $_REQUEST["amount"], $_REQUEST["details"]);
     mysqli_stmt_execute($stmt);
     $insertedRows = mysqli_stmt_affected_rows($stmt);
 
@@ -21,15 +19,15 @@ if ($stmt =  mysqli_prepare($link, $query)){
         $results[] = [
             "insertedRows" => $insertedRows,
             "id" => $link->insert_id,
-            "full_name" => $_REQUEST["full_name"]
+            "expense_name" => $_REQUEST["expense_name"],
+            "amount" => $_REQUEST["amount"],
+            "details" => $_REQUEST["details"]
         ];
     }
     echo json_encode($results);
 }
 
-//https://www.sktanveer65.web582.com/dynamic-web-prog/demo_db/app/insert.php?full_name=Robin&email=robin@mail.com&tvshow=Robinhood
- //test
- //test2
+//https://www.sktanveer65.web582.com/dynamic-web-prog/demo_db/app/insert.php?expense_name=Fuel&amount=90&details=Trip to Mont-Tremblant
 
 ?>
 
@@ -41,12 +39,33 @@ if ($stmt =  mysqli_prepare($link, $query)){
     <title>insert</title>
 </head>
 <body>
-    <form action="" method="POST">
-        <input type="text" name="full_name" placeholder="Write full name">
-        <input type="email" name="email" placeholder="Email">
-        <input type="text" name="tvshow" placeholder="Enter TV Show">
-        <input type="submit" value="submit">
-    </form>
+    <section>
+        <h1>Expense Tracker</h1>
+        <form action="" method="POST">
+            <table>
+                <tr>
+                    <td><h3>Expense Name</h3></td>
+                    <td><input type="text" name="expense_name" placeholder="Name the expense" required></td>
+                </tr>
+
+                <tr>
+                    <td><h3>Amount</h3></td>
+                    <td><input type="float" name="amount" placeholder="Amount" required></td>
+                </tr>
+
+                <tr>
+                    <td><h3>Details</h3></td>
+                    <td><input type="text" name="details" placeholder="Details"></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Submit"></td>
+                </tr>
+
+            </table>      
+        </form>
+    </section>
 </body>
 </html>
 

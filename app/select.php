@@ -2,7 +2,7 @@
     //connect to db
 require_once "_includes/db_connect.php";
 
-$stmt = mysqli_prepare($link, "SELECT name, email, tvshow, timestamp FROM demo");
+$stmt = mysqli_prepare($link, "SELECT expense_name, amount, details, added_on FROM expense");
 
 //execute the statment / query from above
 mysqli_stmt_execute($stmt);
