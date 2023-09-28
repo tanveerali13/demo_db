@@ -2,16 +2,16 @@
 
 $host = "localhost:3306";
 $user = "tanveer_demo_db";
-$pass = "demo@123@";
+$pass = "";
 $db = "tanveer_demo_db";
 
 $link = mysqli_connect($host, $user, $pass, $db);
 
 $db_response = [];
 $dp_response['success'] = 'not set';
-if(!$link){
+if (!$link) {
     $db_response['success'] = false;
-}else{
+} else {
     $db_response['success'] = true;
 }
 
